@@ -210,7 +210,11 @@ const ProcessWaveSection = () => {
 
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative py-10 z-20">
-      <div className="text-center mb-16">
+      
+      {/* TEXT ALIGNMENT UPDATE: 
+          Added 'md:pr-[100px]' to push the text 100px from the right edge on desktop 
+      */}
+      <div className="text-center md:text-right mb-16 relative z-10 md:pr-[200px]">
         <AnimatedSection>
           <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
             Our Workflow
@@ -743,6 +747,14 @@ const App = () => {
           className="bg-transparent relative overflow-hidden py-10 z-20"
         >
           <div className="absolute top-0 right-0 w-1/3 h-full bg-[#B98A6A]/5 blur-[100px] pointer-events-none"></div>
+          
+          {/* --- Process Decoration Image --- */}
+          <img
+            src="https://demo2.themelexus.com/antra/wp-content/uploads/2025/06/h1-banner02.png"
+            alt="Process Decoration"
+            className="absolute top-0 left-0 w-[200px] md:w-[350px] lg:w-[500px] opacity-100 z-0 pointer-events-none"
+          />
+
           <ProcessWaveSection />
         </section>
 
