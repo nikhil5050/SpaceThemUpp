@@ -309,12 +309,12 @@ const VisionMissionSection = () => {
       <img
         src="https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-52.png"
         alt=""
-        className="absolute top-0 right-0 w-[200px] h-auto opacity-20 pointer-events-none z-0 hidden lg:block rotate-180"
+        className="absolute top-0 right-0 w-[200px] h-auto opacity-80 pointer-events-none z-0 hidden lg:block rotate-180"
       />
       <img
         src="https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-12.png"
         alt=""
-        className="absolute bottom-0 left-0 w-[200px] h-auto opacity-15 pointer-events-none z-0 hidden lg:block"
+        className="absolute bottom-0 left-0 w-[200px] h-auto opacity-80 pointer-events-none z-0 hidden lg:block"
       />
 
       <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 relative z-10">
@@ -409,31 +409,27 @@ const DecorativeBackgrounds = () => {
   const images = [
     {
       src: "https://jncdesignstudio.com/wp-content/uploads/2023/12/2-1.png",
-      style: "top-0 right-0 w-[200px] md:w-[400px] opacity-40",
+      style: "top-0 right-0 w-[200px] md:w-[400px] opacity-100",
     },
     {
       src: "https://jncdesignstudio.com/wp-content/uploads/2023/12/object-2-1.png",
-      style: "top-[10%] left-0 w-[150px] md:w-[300px] opacity-30",
+      style: "top-[10%] left-0 w-[150px] md:w-[300px] opacity-80",
     },
     {
       src: "https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-2.png",
-      style: "top-[25%] right-0 w-[150px] md:w-[300px] opacity-30",
+      style: "top-[25%] right-0 w-[150px] md:w-[300px] opacity-80",
     },
     {
       src: "https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-12.png",
-      style: "top-[40%] left-0 w-[180px] md:w-[350px] opacity-25",
+      style: "top-[40%] left-0 w-[180px] md:w-[350px] opacity-80",
     },
     {
       src: "https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-52.png",
-      style: "top-[55%] right-0 w-[200px] md:w-[400px] opacity-25",
-    },
-    {
-      src: "https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-13.png",
-      style: "top-[70%] left-0 w-[150px] md:w-[300px] opacity-30",
+      style: "top-[55%] right-0 w-[200px] md:w-[400px] opacity-80",
     },
     {
       src: "https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-2.png",
-      style: "bottom-0 right-0 w-[150px] md:w-[300px] opacity-20",
+      style: "bottom-0 right-0 w-[150px] md:w-[300px] opacity-80",
     },
   ];
 
@@ -646,20 +642,14 @@ const App = () => {
           className="py-20 md:py-32 bg-transparent relative pb-0 z-20"
         >
           {/* Specific Background Decorations for About Section */}
-          <div className="absolute top-20 left-10 w-[200px] opacity-10 animate-spin-slow pointer-events-none z-0">
+          <div className="absolute top-10 left-20 w-[200px] opacity-80 animate-spin-slow pointer-events-none z-0">
             <img
               src="https://jncdesignstudio.com/wp-content/uploads/2023/12/object-2-1.png"
               alt=""
               className="w-full h-auto"
             />
           </div>
-          <div className="absolute bottom-10 right-0 w-[150px] opacity-20 pointer-events-none z-0">
-            <img
-              src="https://jncdesignstudio.com/wp-content/uploads/2023/12/effect-13.png"
-              alt=""
-              className="w-full h-auto"
-            />
-          </div>
+          
 
           <div className="container mx-auto px-6 relative z-10">
             <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
