@@ -544,6 +544,9 @@ const App = () => {
                 alt="Space Them Upp Logo"
                 className="h-12 w-auto"
               />
+              <span className="text-xl font-bold tracking-widest text-[#B98A6A]">
+                Space Them Upp
+              </span>
             </div>
 
             <div className="hidden md:flex space-x-8 items-center">
@@ -704,7 +707,7 @@ const App = () => {
         </AnimatedSection>
 
         {/* --- Services Section --- */}
-        <section id="services" className="py-20 bg-[#D3CECB]/50 relative z-20">
+        <section id="services" className="py-20  relative z-20">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <AnimatedSection>
