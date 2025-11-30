@@ -210,10 +210,6 @@ const ProcessWaveSection = () => {
 
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative py-10 z-20">
-      
-      {/* TEXT ALIGNMENT UPDATE: 
-          Added 'md:pr-[100px]' to push the text 100px from the right edge on desktop 
-      */}
       <div className="text-center md:text-right mb-16 relative z-10 md:pr-[200px]">
         <AnimatedSection>
           <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
@@ -520,6 +516,16 @@ const App = () => {
 
   return (
     <>
+      <style>
+        {`
+          @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+          }
+        `}
+      </style>
+
       {/* --- Loader --- */}
       {loading && <Preloader logoUrl={logoUrl} />}
 
@@ -656,7 +662,6 @@ const App = () => {
               className="w-full h-auto"
             />
           </div>
-          
 
           <div className="container mx-auto px-6 relative z-10">
             <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
@@ -676,7 +681,8 @@ const App = () => {
                   About Us
                 </h3>
                 <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032] mb-6">
-                  Creating Timeless <span className="text-[#B98A6A]">Interiors</span>
+                  Creating Timeless{" "}
+                  <span className="text-[#B98A6A]">Interiors</span>
                 </h2>
                 <div className="space-y-6 text-[#5A4032]/80 leading-relaxed">
                   <p>
@@ -747,13 +753,18 @@ const App = () => {
           className="bg-transparent relative overflow-hidden py-10 z-20"
         >
           <div className="absolute top-0 right-0 w-1/3 h-full bg-[#B98A6A]/5 blur-[100px] pointer-events-none"></div>
-          
-          {/* --- Process Decoration Image --- */}
-          <img
-            src="https://demo2.themelexus.com/antra/wp-content/uploads/2025/06/h1-banner02.png"
-            alt="Process Decoration"
-            className="absolute top-0 left-0 w-[200px] md:w-[350px] lg:w-[500px] opacity-100 z-0 pointer-events-none"
-          />
+
+          {/* --- Process Decoration Image with Animation --- */}
+          <div className="absolute top-0 left-0 z-0 pointer-events-none">
+            <AnimatedSection>
+              <img
+                src="https://demo2.themelexus.com/antra/wp-content/uploads/2025/06/h1-banner02.png"
+                alt="Process Decoration"
+                className="w-[200px] md:w-[350px] lg:w-[500px] opacity-100"
+                style={{ animation: "float 6s ease-in-out infinite" }}
+              />
+            </AnimatedSection>
+          </div>
 
           <ProcessWaveSection />
         </section>
