@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import ServiceDetails from "./componant/ServiceDetails";
+
 import {
   Menu,
   X,
@@ -447,11 +450,13 @@ const DecorativeBackgrounds = () => {
   );
 };
 
-const App = () => {
+// --- Home Component (Formerly the entire App) ---
+const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [loading, setLoading] = useState(true);
   const heroImageRef = useRef(null);
+  const navigate = useNavigate(); // Hook for navigation
 
   const logoUrl = "https://adswisemarketing.com//logo%20(3).png";
 
@@ -487,6 +492,7 @@ const App = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  // Subset of services for the home page (full list is in ServiceDetails.jsx)
   const services = [
     { title: "Site Measurement", icon: <Ruler className="w-8 h-8" /> },
     { title: "Space Planning", icon: <PencilRuler className="w-8 h-8" /> },
@@ -497,21 +503,6 @@ const App = () => {
       icon: <MessageCircle className="w-8 h-8" />,
     },
     { title: "Experienced Team", icon: <Users className="w-8 h-8" /> },
-    {
-      title: "Project Management",
-      icon: <ClipboardList className="w-8 h-8" />,
-    },
-    { title: "Furniture", icon: <Armchair className="w-8 h-8" /> },
-    { title: "Civil Work", icon: <HardHat className="w-8 h-8" /> },
-    { title: "Modular Kitchen", icon: <Utensils className="w-8 h-8" /> },
-    { title: "Plumbing", icon: <Wrench className="w-8 h-8" /> },
-    { title: "Ceiling Design", icon: <Grid className="w-8 h-8" /> },
-    { title: "Light & Decor", icon: <Lightbulb className="w-8 h-8" /> },
-    { title: "Paint & Decor", icon: <PaintBucket className="w-8 h-8" /> },
-    { title: "Landscape & Balcony", icon: <Trees className="w-8 h-8" /> },
-    { title: "Site Cleaning", icon: <Sparkles className="w-8 h-8" /> },
-    { title: "Quality Assurance", icon: <ShieldCheck className="w-8 h-8" /> },
-    { title: "After Sales Service", icon: <Headset className="w-8 h-8" /> },
   ];
 
   return (
@@ -717,7 +708,7 @@ const App = () => {
         </AnimatedSection>
 
         {/* --- Services Section --- */}
-        <section id="services" className="py-20  relative z-20">
+        <section id="services" className="py-20 relative z-20">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <AnimatedSection>
@@ -730,7 +721,7 @@ const App = () => {
               </AnimatedSection>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
               {services.map((service, index) => (
                 <AnimatedSection key={index} delay={index * 50}>
                   <div className="group bg-[#C9B29D] p-6 rounded-lg hover:bg-[#B98A6A] transition-all duration-300 h-full flex flex-col items-center text-center cursor-pointer border border-[#C9B29D] hover:border-[#B98A6A] shadow-lg hover:shadow-2xl hover:-translate-y-2">
@@ -744,6 +735,22 @@ const App = () => {
                 </AnimatedSection>
               ))}
             </div>
+
+            {/* --- NEW LEARN MORE BUTTON --- */}
+            <div className="mt-12 flex justify-center">
+              <AnimatedSection delay={300}>
+                <button
+                  onClick={() => navigate("/service-details")}
+                  className="group relative px-8 py-3 bg-transparent overflow-hidden rounded-full border border-[#B98A6A] text-[#B98A6A] hover:text-white transition-colors duration-300 ease-out shadow-md"
+                >
+                  <span className="absolute inset-0 w-full h-full bg-[#B98A6A] -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                  <span className="relative flex items-center gap-2 font-bold tracking-wider uppercase text-sm">
+                    View All Services & Videos <ArrowRight className="w-4 h-4" />
+                  </span>
+                </button>
+              </AnimatedSection>
+            </div>
+            
           </div>
         </section>
 
@@ -983,6 +990,18 @@ const App = () => {
         <WhatsAppButton />
       </div>
     </>
+  );
+};
+
+// --- MAIN APP COMPONENT WITH ROUTING ---
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/service-details" element={<ServiceDetails />} />
+      </Routes>
+    </Router>
   );
 };
 
