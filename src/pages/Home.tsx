@@ -175,7 +175,7 @@ const Home: React.FC = () => {
           className="relative z-20 h-screen w-full bg-transparent flex items-center justify-center p-6 md:p-12 overflow-hidden"
           onMouseMove={handleHeroMouseMove}
         >
-          <div className="relative w-full h-full rounded-tl-[100px] rounded-br-[100px] rounded-tr-none rounded-bl-none overflow-hidden mt-16 group">
+          <div className="relative w-full h-full rounded-tl-[100px] rounded-br-[100px] rounded-tr-none rounded-bl-none overflow-hidden mt-22 group">
             <div
               ref={heroImageRef}
               className="absolute inset-0 transition-transform duration-100 ease-out will-change-transform scale-110"
