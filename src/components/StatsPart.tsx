@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  Handshake,
-  PencilRuler,
-  Cloud,
-  Wrench,
-  Home as HomeIcon,
+  PhoneCall,
+  ClipboardList,
+  FileText,
+  CheckCircle,
+  Rocket,
 } from "lucide-react";
 
 interface StepCard {
@@ -22,67 +22,76 @@ const StatsPart: React.FC = () => {
   const steps: StepCard[] = [
     {
       id: 1,
-      title: "MEET",
-      description: "Meet up with our experts and get a free estimate",
-      icon: <Handshake size={32} />,
-      bgColor: "bg-[#FF5252]",
+      title: "INQUIRY",
+      description: "Reach out via our contact form or give us a quick call",
+      icon: <PhoneCall size={32} />,
+      bgColor: "bg-[#6B4F3A]", // Dark Brown
       textColor: "text-white",
       height: "lg:h-[400px]",
-      iconColor: "text-[#FF5252]",
+      iconColor: "text-[#6B4F3A]",
     },
     {
       id: 2,
-      title: "DESIGN",
+      title: "CONSULTATION",
       description:
-        "Tailor the perfect design for your place with the help of our experts",
-      icon: <PencilRuler size={32} />,
-      bgColor: "bg-[#6C85FA]",
+        "Free 30-minute discovery session to discuss your vision",
+      icon: <ClipboardList size={32} />,
+      bgColor: "bg-[#C6A98B]", // Medium Brown
       textColor: "text-white",
       height: "lg:h-[460px]",
-      iconColor: "text-[#6C85FA]",
+      iconColor: "text-[#C6A98B]",
     },
     {
       id: 3,
-      title: "VISUALIZE",
-      description: "View 3D graphic renders and finialise the plan",
-      icon: <Cloud size={32} />,
-      bgColor: "bg-[#FFE066]",
-      textColor: "text-[#5A4032]",
+      title: "PROPOSAL",
+      description: "Receive a tailored roadmap and transparent quote",
+      icon: <FileText size={32} />,
+      bgColor: "bg-[#E8DCCF]", // Light Beige (Center)
+      textColor: "text-[#6B4F3A]", // Dark text
       height: "lg:h-[520px]",
-      iconColor: "text-[#E6C229]",
+      iconColor: "text-[#6B4F3A]",
     },
     {
       id: 4,
-      title: "EXECUTION",
-      description: "Setting up your interiors",
-      icon: <Wrench size={32} />,
-      bgColor: "bg-[#D946EF]",
-      textColor: "text-white",
+      title: "AGREEMENT",
+      description: "Review terms, sign the contract, and secure your slot",
+      icon: <CheckCircle size={32} />,
+      bgColor: "bg-[#D7C7B4]", // Beige
+      textColor: "text-[#6B4F3A]", // Dark text
       height: "lg:h-[460px]",
-      iconColor: "text-[#D946EF]",
+      iconColor: "text-[#6B4F3A]",
     },
     {
       id: 5,
-      title: "HANDOVER",
-      description: "Move into your new home!",
-      icon: <HomeIcon size={32} />,
-      bgColor: "bg-[#96F2D7]",
-      textColor: "text-[#5A4032]",
+      title: "LIFT OFF",
+      description: "We launch the project and start building your dream!",
+      icon: <Rocket size={32} />,
+      bgColor: "bg-[#6B4F3A]", // Dark Brown
+      textColor: "text-white",
       height: "lg:h-[400px]",
-      iconColor: "text-[#5A4032]",
+      iconColor: "text-[#6B4F3A]",
     },
   ];
 
   return (
-    <div className="bg-[#EBE7E0] py-16 px-4 md:px-8 relative z-20">
-      <div className="max-w-7xl mx-auto">
+    <div className="w-full max-w-full mx-auto px-4 md:px-6 relative py-16 z-20 bg-gray-50 min-h-screen flex flex-col items-center justify-center">
+      <div className="max-w-7xl mx-auto w-full">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#6B4F3A] mb-4">
+            Ready to Start?
+          </h2>
+          <p className="text-[#8C7A6B] max-w-2xl mx-auto">
+            Kickstart your journey with us in 5 simple steps. From the first hello to the final launch, we make the process seamless.
+          </p>
+        </div>
+        
         <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-0">
           {steps.map((step) => (
             <div
               key={step.id}
-              className={`relative w-full lg:w-[240px] flex flex-col items-center justify-start pt-10 px-4 text-center rounded-3xl lg:rounded-none lg:rounded-t-full ${step.bgColor} ${step.height} transition-all duration-300 hover:brightness-105 min-h-[300px] lg:min-h-0`}
+              className={`relative w-full lg:w-[240px] flex flex-col items-center justify-start pt-10 px-4 text-center rounded-3xl lg:rounded-none lg:rounded-t-full ${step.bgColor} ${step.height} transition-all duration-300 hover:brightness-105 min-h-[300px] lg:min-h-0 shadow-lg group cursor-pointer`}
             >
-              <div className="bg-white rounded-full p-5 mb-6 shadow-sm flex items-center justify-center">
+              <div className="bg-white rounded-full p-5 mb-6 shadow-md flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
                 <span className={step.iconColor}>{step.icon}</span>
               </div>
               <h3
@@ -97,6 +106,16 @@ const StatsPart: React.FC = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+            <a 
+              href="/#contact"
+              className="bg-[#6B4F3A] hover:bg-[#5a4230] text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 text-lg inline-flex items-center gap-2 mx-auto"
+            >
+                <PhoneCall size={20} />
+                Book Your Free Consultation
+            </a>
         </div>
       </div>
     </div>
