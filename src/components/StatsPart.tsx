@@ -33,8 +33,7 @@ const StatsPart: React.FC = () => {
     {
       id: 2,
       title: "CONSULTATION",
-      description:
-        "Free 30-minute discovery session to discuss your vision",
+      description: "Free 30-minute discovery session to discuss your vision",
       icon: <ClipboardList size={32} />,
       bgColor: "bg-[#C6A98B]", // Medium Brown
       textColor: "text-white",
@@ -74,17 +73,39 @@ const StatsPart: React.FC = () => {
   ];
 
   return (
-    <div className="w-full max-w-full mx-auto px-4 md:px-6 relative py-16 z-20 bg-gray-50 min-h-screen flex flex-col items-center justify-center">
+    <div className="w-full max-w-full mx-auto px-4 md:px-6 relative py-2 z-20 bg-white min-h-screen flex flex-col items-center justify-center">
       <div className="max-w-7xl mx-auto w-full">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#6B4F3A] mb-4">
-            Ready to Start?
-          </h2>
-          <p className="text-[#8C7A6B] max-w-2xl mx-auto">
-            Kickstart your journey with us in 5 simple steps. From the first hello to the final launch, we make the process seamless.
-          </p>
-        </div>
         
+        {/* Header Section with Image */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mb-16 lg:px-[50px]">
+          
+          {/* Text Side */}
+          <div className="lg:w-1/2 text-center lg:text-left">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#6B4F3A] mb-6">
+              Ready to Start?
+            </h2>
+            <p className="text-[#8C7A6B] text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Kickstart your journey with us in 5 simple steps. From the first
+              hello to the final launch, we make the process seamless,
+              transparent, and exciting.
+            </p>
+          </div>
+
+          {/* Image Side */}
+          <div className="lg:w-1/2 flex justify-center lg:justify-end">
+            <div className="relative  overflow-hidden  rotate-1  transition-transform duration-500 max-w-md">
+              <img
+                src="https://i.pinimg.com/736x/b3/59/0f/b3590f62fdde97a5c76cead1fc5e2d3f.jpg"
+                alt="Cozy interior aesthetic"
+                className="w-full h-auto object-cover max-h-[350px]"
+              />
+              
+            </div>
+          </div>
+
+        </div>
+
+        {/* Steps Cards */}
         <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-4 lg:gap-0">
           {steps.map((step) => (
             <div
@@ -108,14 +129,15 @@ const StatsPart: React.FC = () => {
           ))}
         </div>
 
+        {/* Call to Action Button */}
         <div className="mt-12 text-center">
-            <a 
-              href="/#contact"
-              className="bg-[#6B4F3A] hover:bg-[#5a4230] text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 text-lg inline-flex items-center gap-2 mx-auto"
-            >
-                <PhoneCall size={20} />
-                Book Your Free Consultation
-            </a>
+          <a
+            href="/#contact"
+            className="bg-[#6B4F3A] hover:bg-[#5a4230] text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1 text-lg inline-flex items-center gap-2 mx-auto"
+          >
+            <PhoneCall size={20} />
+            Book Your Free Consultation
+          </a>
         </div>
       </div>
     </div>

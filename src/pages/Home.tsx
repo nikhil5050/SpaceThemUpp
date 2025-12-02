@@ -24,6 +24,7 @@ import VisionMissionSection from "../components/VisionMissionSection";
 import StatsPart from "../components/StatsPart";
 import DecorativeBackgrounds from "../components/DecorativeBackgrounds";
 
+
 interface NavLink {
   name: string;
   href: string;
@@ -38,11 +39,17 @@ const Home: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  
+  // --- Animation Logic State ---
+  const [textIndex, setTextIndex] = useState(0);
+  const words = ["Modern", "Traditional", "Contemporary"];
+  
   const heroImageRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
   const logoUrl = "https://adswisemarketing.com//logo%20(3).png";
 
+  // --- Preloader Effect ---
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setLoading(false);
@@ -51,12 +58,22 @@ const Home: React.FC = () => {
     return () => window.clearTimeout(timer);
   }, []);
 
+  // --- Scroll Effect ---
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // --- Text Animation Effect ---
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, 3000); // Change text every 3 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleHeroMouseMove = (
@@ -121,7 +138,11 @@ const Home: React.FC = () => {
         >
           <div className="container mx-auto px-6 flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <img src={logoUrl} alt="Space Them Upp Logo" className="h-12 w-auto" />
+              <img
+                src={logoUrl}
+                alt="Space Them Upp Logo"
+                className="h-12 w-auto"
+              />
               <span className="text-xl font-bold tracking-widest text-[#B98A6A]">
                 Space Them Upp
               </span>
@@ -137,12 +158,12 @@ const Home: React.FC = () => {
                   {link.name}
                 </a>
               ))}
-              <a
-                href="#contact"
-                className="px-6 py-2 border border-[#B98A6A] text-[#B98A6A] hover:bg-[#B98A6A] hover:text-white transition-all duration-300 rounded-sm font-medium"
-              >
-                Get Started
-              </a>
+              <button
+          onClick={() => navigate('/multi-step-form')} // 3. Add navigation event
+          className="px-6 py-2 border border-[#B98A6A] text-[#B98A6A] ..."
+        >
+          Get Started
+        </button>
             </div>
 
             <button
@@ -200,17 +221,27 @@ const Home: React.FC = () => {
                     </span>
                   </h1>
 
-                  <p className="text-[#5A4032] tracking-[0.2em] uppercase text-sm md:text-base font-bold mb-10 drop-shadow-md bg-[#FFFFFF]/80 backdrop-blur-sm px-4 py-2 rounded-full inline-block">
-                    Transform Your Space
+                  {/* --- NEW ANIMATED TEXT HEADER --- */}
+                  <p className="tracking-[0.2em] uppercase text-xl md:text-xl mb-10 drop-shadow-md px-6 py-3 inline-block text-white  rounded-md backdrop-blur-md border border-white/20">
+                    Trans<span className="font-bold">forming</span> Sp
+                    <span className="font-bold">aces</span>
+                    <span className="mx-3 opacity-50">|</span>
+                    <span
+                      key={textIndex}
+                      className="font-bold text-orange-400 animate-pulse"
+                    >
+                      {words[textIndex]}
+                    </span>
                   </p>
+                  {/* -------------------------------- */}
 
-                  <a
-                    href="#contact"
-                    className="bg-[#B98A6A] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#a17558] transition-all duration-300 flex items-center gap-3 group shadow-xl hover:shadow-2xl hover:scale-105 transform"
-                  >
-                    Get Started
-                    <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
-                  </a>
+                 <button
+            onClick={() => navigate('/multi-step-form')} // 3. Add navigation event
+            className="bg-[#B98A6A] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#a17558] transition-all duration-300 flex items-center gap-3 group shadow-xl hover:shadow-2xl hover:scale-105 transform"
+          >
+            Get Instant Estimate
+            <ArrowRight className="..." />
+          </button>
                 </div>
               </AnimatedSection>
             </div>
@@ -218,7 +249,10 @@ const Home: React.FC = () => {
         </section>
 
         {/* ABOUT + VISION */}
-        <section id="about" className="py-20 md:py-32 bg-transparent relative pb-0 z-20">
+        <section
+          id="about"
+          className="py-20 md:py-32 bg-transparent relative pb-0 z-20"
+        >
           <div className="absolute top-10 left-20 w-[200px] opacity-80 animate-spin-slow pointer-events-none z-0">
             <img
               src="https://jncdesignstudio.com/wp-content/uploads/2023/12/object-2-1.png"
@@ -245,25 +279,26 @@ const Home: React.FC = () => {
                   About Us
                 </h3>
                 <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032] mb-6">
-                  Creating Timeless <span className="text-[#B98A6A]">Interiors</span>
+                  Creating Timeless{" "}
+                  <span className="text-[#B98A6A]">Interiors</span>
                 </h2>
                 <div className="space-y-6 text-[#5A4032]/80 leading-relaxed">
                   <p>
-                    Space Them Upp Specializes in providing turnkey design solutions
-                    for high end residential luxury homes and commercial projects.
-                    Our ability to create luxurious, sophisticated interiors of
-                    timeless quality, extraordinary design, and functionality,
-                    infused with client's personal style and desires. Most
-                    importantly we respect our client’s budget and established
-                    timeline…
+                    Space Them Upp Specializes in providing turnkey design
+                    solutions for high end residential luxury homes and
+                    commercial projects. Our ability to create luxurious,
+                    sophisticated interiors of timeless quality, extraordinary
+                    design, and functionality, infused with client's personal
+                    style and desires. Most importantly we respect our client’s
+                    budget and established timeline…
                   </p>
                   <p>
-                    At Space Them Upp, we believe that interior design is not just
-                    about aesthetics; it's about creating spaces that enhance the
-                    way you live and work. Our team of experienced designers is
-                    dedicated to bringing your vision to life, ensuring every detail
-                    is meticulously crafted to reflect your unique style and
-                    personality.
+                    At Space Them Upp, we believe that interior design is not
+                    just about aesthetics; it's about creating spaces that
+                    enhance the way you live and work. Our team of experienced
+                    designers is dedicated to bringing your vision to life,
+                    ensuring every detail is meticulously crafted to reflect
+                    your unique style and personality.
                   </p>
                 </div>
               </AnimatedSection>
@@ -286,7 +321,9 @@ const Home: React.FC = () => {
                 <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
                   What We Do
                 </h3>
-                <h2 className="text-4xl font-serif text-[#5A4032]">Our Expertise</h2>
+                <h2 className="text-4xl font-serif text-[#5A4032]">
+                  Our Expertise
+                </h2>
               </AnimatedSection>
             </div>
 
@@ -378,6 +415,7 @@ const Home: React.FC = () => {
 
         {/* CONTACT */}
         <section id="contact" className="py-20 bg-transparent relative z-20">
+          
           <div className="container mx-auto px-6">
             <div className="bg-[#C9B29D] rounded-2xl p-8 md:p-16 relative overflow-hidden shadow-2xl">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#B98A6A]/20 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
@@ -391,8 +429,8 @@ const Home: React.FC = () => {
                     Ready to Transform Your Space?
                   </h2>
                   <p className="text-[#5A4032]/80 mb-8">
-                    Contact us to discuss your vision and goals. Receive a tailored
-                    plan that fits your needs perfectly.
+                    Contact us to discuss your vision and goals. Receive a
+                    tailored plan that fits your needs perfectly.
                   </p>
                   <div className="space-y-4">
                     <div className="flex items-center gap-4 text-[#5A4032]">
@@ -414,7 +452,9 @@ const Home: React.FC = () => {
                         <p className="text-xs text-[#5A4032]/70 uppercase">
                           Website
                         </p>
-                        <p className="font-bold text-lg">www.spacethemupp.com</p>
+                        <p className="font-bold text-lg">
+                          www.spacethemupp.com
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -467,43 +507,61 @@ const Home: React.FC = () => {
           </div>
         </section>
 
+
+
         {/* FOOTER */}
         <footer className="bg-[#D3CECB] pt-16 pb-8 border-t border-[#C9B29D] relative z-20">
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-4 gap-12 mb-12">
               <div className="col-span-1 md:col-span-2">
                 <div className="flex items-center gap-3 mb-6">
-                  <img src={logoUrl} alt="Space Them Upp Logo" className="h-14 w-auto" />
+                  <img
+                    src={logoUrl}
+                    alt="Space Them Upp Logo"
+                    className="h-14 w-auto"
+                  />
                   <h2 className="text-2xl font-serif font-bold text-[#5A4032] tracking-wider">
                     SPACE THEM UPP
                   </h2>
                 </div>
                 <p className="text-[#5A4032]/80 max-w-sm">
-                  Turning your dream space into reality with extraordinary design
-                  and functionality. Specializing in luxury residential and
-                  commercial fit-outs.
+                  Turning your dream space into reality with extraordinary
+                  design and functionality. Specializing in luxury residential
+                  and commercial fit-outs.
                 </p>
               </div>
               <div>
                 <h4 className="text-[#5A4032] font-bold mb-6">Quick Links</h4>
                 <ul className="space-y-3 text-[#5A4032]/80">
                   <li>
-                    <a href="#home" className="hover:text-[#B98A6A] transition-colors">
+                    <a
+                      href="#home"
+                      className="hover:text-[#B98A6A] transition-colors"
+                    >
                       Home
                     </a>
                   </li>
                   <li>
-                    <a href="#about" className="hover:text-[#B98A6A] transition-colors">
+                    <a
+                      href="#about"
+                      className="hover:text-[#B98A6A] transition-colors"
+                    >
                       About Us
                     </a>
                   </li>
                   <li>
-                    <a href="#services" className="hover:text-[#B98A6A] transition-colors">
+                    <a
+                      href="#services"
+                      className="hover:text-[#B98A6A] transition-colors"
+                    >
                       Services
                     </a>
                   </li>
                   <li>
-                    <a href="#process" className="hover:text-[#B98A6A] transition-colors">
+                    <a
+                      href="#process"
+                      className="hover:text-[#B98A6A] transition-colors"
+                    >
                       Process
                     </a>
                   </li>
@@ -528,7 +586,8 @@ const Home: React.FC = () => {
               </div>
             </div>
             <div className="border-t border-[#C9B29D] pt-8 text-center text-[#5A4032]/60 text-sm">
-              &copy; {new Date().getFullYear()} Space Them Upp. All rights reserved.
+              &copy; {new Date().getFullYear()} Space Them Upp. All rights
+              reserved.
             </div>
           </div>
         </footer>
