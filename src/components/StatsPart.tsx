@@ -81,7 +81,7 @@ const StatsPart: React.FC = () => {
           
           {/* Text Side */}
           <div className="lg:w-1/2 text-center lg:text-left">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#6B4F3A] mb-6">
+            <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032] whitespace-nowrap mb-6">
               Ready to Start?
             </h2>
             <p className="text-[#8C7A6B] text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">

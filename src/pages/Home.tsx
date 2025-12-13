@@ -23,7 +23,11 @@ import ProcessWaveSection from "../components/ProcessWaveSection";
 import VisionMissionSection from "../components/VisionMissionSection";
 import StatsPart from "../components/StatsPart";
 import DecorativeBackgrounds from "../components/DecorativeBackgrounds";
-
+// At the top of Home.tsx
+import GallerySection from "../components/GallerySection";
+import Seo from "../components/Seo";
+import ContactSection from "../components/ContactSection";
+import MultiStepForm from "../componant/MultiStepForm";
 
 interface NavLink {
   name: string;
@@ -39,11 +43,11 @@ const Home: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  
+
   // --- Animation Logic State ---
   const [textIndex, setTextIndex] = useState(0);
   const words = ["Modern", "Traditional", "Contemporary"];
-  
+
   const heroImageRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
@@ -92,6 +96,7 @@ const Home: React.FC = () => {
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
     { name: "Process", href: "#process" },
+    { name: "Gallery", href: "#gallery" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -109,6 +114,12 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <Seo
+        title="Space Them Upp | Best Interior Designers for Home & Office"
+        description="Transform your space with Space Them Upp. Expert interior designers for homes, offices, modular kitchens, bedrooms and luxury interiors across India."
+        url="https://spacethemupp.com"
+        image="https://spacethemupp.com/home-og-image.jpg"
+      />
       <style>
         {`
           @keyframes float {
@@ -159,11 +170,11 @@ const Home: React.FC = () => {
                 </a>
               ))}
               <button
-          onClick={() => navigate('/multi-step-form')} // 3. Add navigation event
-          className="px-6 py-2 border border-[#B98A6A] text-[#B98A6A] ..."
-        >
-          Get Started
-        </button>
+                onClick={() => navigate("/multi-step-form")} // 3. Add navigation event
+                className="px-6 py-2 border border-[#B98A6A] text-[#B98A6A] ..."
+              >
+                Get Started
+              </button>
             </div>
 
             <button
@@ -235,13 +246,13 @@ const Home: React.FC = () => {
                   </p>
                   {/* -------------------------------- */}
 
-                 <button
-            onClick={() => navigate('/multi-step-form')} // 3. Add navigation event
-            className="bg-[#B98A6A] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#a17558] transition-all duration-300 flex items-center gap-3 group shadow-xl hover:shadow-2xl hover:scale-105 transform"
-          >
-            Get Instant Estimate
-            <ArrowRight className="..." />
-          </button>
+                  <button
+                    onClick={() => navigate("/multi-step-form")} // 3. Add navigation event
+                    className="bg-[#B98A6A] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#a17558] transition-all duration-300 flex items-center gap-3 group shadow-xl hover:shadow-2xl hover:scale-105 transform"
+                  >
+                    Get Instant Estimate
+                    <ArrowRight className="..." />
+                  </button>
                 </div>
               </AnimatedSection>
             </div>
@@ -251,7 +262,7 @@ const Home: React.FC = () => {
         {/* ABOUT + VISION */}
         <section
           id="about"
-          className="py-20 md:py-32 bg-transparent relative pb-0 z-20"
+          className="py-10 md:py-12 bg-transparent relative pb-0 z-20"
         >
           <div className="absolute top-10 left-20 w-[200px] opacity-80 animate-spin-slow pointer-events-none z-0">
             <img
@@ -275,9 +286,13 @@ const Home: React.FC = () => {
               </AnimatedSection>
 
               <AnimatedSection delay={200}>
-                <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
-                  About Us
-                </h3>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="h-[1px] w-12 bg-[#B98A6A]"></span>
+                  <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
+                    About Us
+                  </h3>
+                </div>
+
                 <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032] mb-6">
                   Creating Timeless{" "}
                   <span className="text-[#B98A6A]">Interiors</span>
@@ -318,14 +333,23 @@ const Home: React.FC = () => {
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <AnimatedSection>
+                
                 <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
+                  
                   What We Do
                 </h3>
-                <h2 className="text-4xl font-serif text-[#5A4032]">
+                <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032] mb-6">
                   Our Expertise
                 </h2>
+
+          
+
+                
+               
               </AnimatedSection>
             </div>
+
+            
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
               {services.map((service, index) => (
@@ -345,7 +369,7 @@ const Home: React.FC = () => {
             <div className="mt-12 flex justify-center">
               <AnimatedSection delay={300}>
                 <button
-                  onClick={() => navigate("/service-details")}
+                  onClick={() => navigate("/services")}
                   className="group relative px-8 py-3 bg-transparent overflow-hidden rounded-full border border-[#B98A6A] text-[#B98A6A] hover:text-white transition-colors duration-300 ease-out shadow-md"
                 >
                   <span className="absolute inset-0 w-full h-full bg-[#B98A6A] -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
@@ -384,37 +408,12 @@ const Home: React.FC = () => {
         </section>
 
         {/* GALLERY */}
-        <section className="py-0 relative z-20">
-          <div className="grid md:grid-cols-2 h-auto md:h-[600px]">
-            <div className="relative group overflow-hidden h-[400px] md:h-auto">
-              <img
-                src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
-                alt="Dining Area"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center">
-                <span className="text-[#FFFFFF] text-2xl font-serif tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                  Residential
-                </span>
-              </div>
-            </div>
-            <div className="relative group overflow-hidden h-[400px] md:h-auto">
-              <img
-                src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1447&q=80"
-                alt="Cafe Seating"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center">
-                <span className="text-[#FFFFFF] text-2xl font-serif tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                  Commercial
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <GallerySection />
 
         {/* CONTACT */}
-        <section id="contact" className="py-20 bg-transparent relative z-20">
+
+        <ContactSection />
+        {/* <section id="contact" className="py-20 bg-transparent relative z-20">
           
           <div className="container mx-auto px-6">
             <div className="bg-[#C9B29D] rounded-2xl p-8 md:p-16 relative overflow-hidden shadow-2xl">
@@ -505,14 +504,13 @@ const Home: React.FC = () => {
               </div>
             </div>
           </div>
-        </section>
-
-
+        </section> */}
 
         {/* FOOTER */}
         <footer className="bg-[#D3CECB] pt-16 pb-8 border-t border-[#C9B29D] relative z-20">
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-4 gap-12 mb-12">
+              {/* Company Info (2 columns on md) */}
               <div className="col-span-1 md:col-span-2">
                 <div className="flex items-center gap-3 mb-6">
                   <img
@@ -530,6 +528,8 @@ const Home: React.FC = () => {
                   and commercial fit-outs.
                 </p>
               </div>
+
+              {/* Quick Links (1 column on md) */}
               <div>
                 <h4 className="text-[#5A4032] font-bold mb-6">Quick Links</h4>
                 <ul className="space-y-3 text-[#5A4032]/80">
@@ -567,31 +567,76 @@ const Home: React.FC = () => {
                   </li>
                 </ul>
               </div>
+
+              {/* Contact Info (New Section - 1 column on md) */}
               <div>
-                <h4 className="text-[#5A4032] font-bold mb-6">Connect</h4>
-                <div className="flex space-x-4">
-                  <a
-                    href="#"
-                    className="w-10 h-10 rounded-full bg-[#FFFFFF] border border-[#B98A6A] flex items-center justify-center text-[#B98A6A] hover:bg-[#B98A6A] hover:text-white transition-all"
-                  >
-                    <Instagram size={20} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 rounded-full bg-[#FFFFFF] border border-[#B98A6A] flex items-center justify-center text-[#B98A6A] hover:bg-[#B98A6A] hover:text-white transition-all"
-                  >
-                    <Facebook size={20} />
-                  </a>
+                <h4 className="text-[#5A4032] font-bold mb-6">Contact</h4>
+                <div className="space-y-4 text-[#5A4032]/80">
+                  <div>
+                    <p className="font-semibold mb-1">Studio Address</p>
+                    <p className="text-sm leading-relaxed">
+                      Office 301 ,3rd Floor, The Centrum, Bhumkar Chowk Rd,
+                      Ashok Nagar, Tathawade, Pune, Pimpri-Chinchwad,
+                      Maharashtra-411033
+                    </p>
+                  </div>
+                  {/* <div>
+            <p className="font-semibold mb-1">Email</p>
+            <a
+              href="mailto:spacethemup.design@gmail.com"
+              className="text-sm hover:text-[#B98A6A] transition-colors"
+            >
+              spacethemup.design@gmail.com
+            </a>
+          </div> */}
+                  <div>
+                    <p className="font-semibold mb-1">Phone</p>
+                    {/* <a
+              href="tel:+919067591818"
+              className="text-sm hover:text-[#B98A6A] transition-colors"
+            >
+              +91 90675 91818
+            </a> */}
+                    {/* <span className="text-sm"> / </span> */}
+                    <a
+                      href="tel:+919623233175"
+                      className="text-sm hover:text-[#B98A6A] transition-colors"
+                    >
+                      +91 96232 33175
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="border-t border-[#C9B29D] pt-8 text-center text-[#5A4032]/60 text-sm">
-              &copy; {new Date().getFullYear()} Space Them Upp. All rights
-              reserved.
+
+            {/* Social Links and Copyright */}
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center border-t border-[#C9B29D] pt-8">
+              {/* Social Links - moved here for better separation from contact details */}
+              <div className="flex space-x-4 mb-6 md:mb-0 justify-center md:justify-start">
+                <a
+                  href="#"
+                  aria-label="Instagram"
+                  className="w-10 h-10 rounded-full bg-[#FFFFFF] border border-[#B98A6A] flex items-center justify-center text-[#B98A6A] hover:bg-[#B98A6A] hover:text-white transition-all"
+                >
+                  <Instagram size={20} />
+                </a>
+                <a
+                  href="#"
+                  aria-label="Facebook"
+                  className="w-10 h-10 rounded-full bg-[#FFFFFF] border border-[#B98A6A] flex items-center justify-center text-[#B98A6A] hover:bg-[#B98A6A] hover:text-white transition-all"
+                >
+                  <Facebook size={20} />
+                </a>
+              </div>
+
+              {/* Copyright */}
+              <div className="text-center text-[#5A4032]/60 text-sm">
+                &copy; {new Date().getFullYear()} Space Them Upp. All rights
+                reserved.
+              </div>
             </div>
           </div>
         </footer>
-
         <WhatsAppButton />
       </div>
     </>

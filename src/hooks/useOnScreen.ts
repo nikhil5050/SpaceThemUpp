@@ -1,25 +1,28 @@
-import { useState, useEffect, useRef, RefObject } from "react";
+import { useState, useEffect, useRef } from "react";
+import type { RefObject } from "react"; // Fixed: Type-only import
 
 export const useOnScreen = (
   options?: IntersectionObserverInit
-): [RefObject<HTMLDivElement>, boolean] => {
-  const ref = useRef<HTMLDivElement | null>(null);
+): [RefObject<HTMLDivElement | null>, boolean] => { // Fixed: Added '| null' to return type
+  const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
+        // Stop observing once visible (optional, based on your logic)
         observer.unobserve(entry.target);
       }
     }, options);
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) observer.unobserve(ref.current);
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, [options]);
 

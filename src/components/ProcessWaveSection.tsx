@@ -33,18 +33,17 @@ const ProcessWaveSection: React.FC = () => {
 
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative py-10 z-20">
-      <div className="text-center md:text-right mb-16 relative z-10 md:pr-[200px]">
-        <AnimatedSection>
-          <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
-            Our Workflow
-          </h3>
-          <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032]">
-            Our Design Process
-          </h2>
-          <p className="text-[#5A4032]/70 mt-4 text-lg">From Vision to Reality</p>
-        </AnimatedSection>
-      </div>
-
+     <div className="text-left mb-16 relative z-10 md:ml-auto md:w-1/2 md:pr-16">
+  <AnimatedSection>
+    <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
+      Our Workflow
+    </h3>
+    <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032] whitespace-nowrap">
+      Our Design Process
+    </h2>
+    <p className="text-[#5A4032]/70 mt-4 text-lg">From Vision to Reality</p>
+  </AnimatedSection>
+</div>
       {/* Mobile */}
       <div className="md:hidden space-y-8">
         {steps.map((step, index) => (

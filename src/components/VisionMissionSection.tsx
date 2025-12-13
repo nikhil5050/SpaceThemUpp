@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Eye, Target, Sparkles, Palette, Ruler, ArrowRight } from "lucide-react";
+import { Eye, Target, Palette, Ruler, ArrowRight } from "lucide-react";
 
 interface VisionMissionItem {
   id: string;
@@ -73,18 +73,24 @@ const VisionMissionSection: React.FC = () => {
             <div className="mb-2 relative">
                 <div className="flex items-center gap-3 mb-4">
                     <span className="h-[1px] w-12 bg-[#B98A6A]"></span>
-                    <span className="text-[#B98A6A] font-bold tracking-[0.2em] uppercase text-xs">Design Philosophy</span>
+                     <h3 className="text-[#B98A6A] text-sm tracking-widest uppercase mb-2 font-bold">
+                  Design Philosophy
+                </h3>
                 </div>
-                <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#5A4032] mt-2 leading-[1.1]">
-                    Crafting Dreams into <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B98A6A] to-[#8C6B50]">Reality</span>
+
+                
+                <h2 className="text-4xl md:text-5xl font-serif text-[#5A4032] mb-6">
+                  Crafting Dreams into{" "}
+                  <span className="text-[#B98A6A]">Reality</span>
                 </h2>
+
                 <p className="mt-6 text-[#8C7A6B] text-lg max-w-lg leading-relaxed">
                     We don't just fill spaces; we curate experiences. Every texture, tone, and light fixture is selected to tell your unique story.
                 </p>
             </div>
 
             <div className="flex flex-col gap-6">
-            {content.map((item, index) => (
+            {content.map((item) => (
                 <div 
                     key={item.id} 
                     onMouseEnter={() => setActiveTab(item.id)}

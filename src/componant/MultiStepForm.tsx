@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import { 
-  Home, Building2, Armchair, Paintbrush, IndianRupee, Clock, Check, 
-  ChevronRight, ChevronLeft, MapPin, Ruler, LayoutDashboard, Send, 
+  Home, Building2, Paintbrush, IndianRupee, Clock, Check, 
+  ChevronRight, ChevronLeft, MapPin, Ruler,  Send, 
   Loader2, Phone, Mail, User, CheckCircle2, AlertCircle, Sparkles
 } from 'lucide-react';
 
@@ -28,7 +29,7 @@ type FormStep = 1 | 2 | 3 | 4;
 
 // --- Constants & Options ---
 
-const CITIES = ["Pune", "Mumbai", "Bangalore", "Delhi", "Hyderabad"];
+const CITIES = ["Pune", "Mumbai"];
 
 const PROPERTY_TYPES = [
   { id: "apartment", label: "Apartment", icon: Building2 },
@@ -61,15 +62,9 @@ const TIMELINES = [
   "Immediately", "1–3 Months", "3–6 Months", "Just Exploring"
 ];
 
-// --- Theme Colors (Mapped to Tailwind Arbitrary Values) ---
-// Background: bg-[#D3CECB] or bg-white
-// Text: text-[#5A4032]
-// Accent: bg-[#B98A6A] or text-[#B98A6A]
-// Cards/Sections: bg-[#C9B29D] (used for selected states/highlights)
-
 // --- Helper Components ---
 
-const StepIndicator = ({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) => {
+const StepIndicator = ({ currentStep }: { currentStep: number; totalSteps: number }) => {
   return (
     <div className="flex gap-2 mb-8">
       {[1, 2, 3, 4].map((step) => (
@@ -108,16 +103,17 @@ const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState<FormStep>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [serverError, setServerError] = useState("");
   
   // Dynamic Side Image Logic
   const [sideImage, setSideImage] = useState("");
 
   useEffect(() => {
-    const images = {
-      1: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop", // Modern Exterior/Living
-      2: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=1992&auto=format&fit=crop", // Floor plan/Room details
-      3: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop", // Styles/Textures
-      4: "https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?q=80&w=2069&auto=format&fit=crop"  // Contact/Elegant desk
+    const images: Record<number, string> = {
+      1: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop", 
+      2: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=1992&auto=format&fit=crop", 
+      3: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop", 
+      4: "https://i.pinimg.com/736x/20/cc/59/20cc5982df1cdc679779e40db2c04f90.jpg"  
     };
     setSideImage(images[currentStep]);
   }, [currentStep]);
@@ -161,7 +157,7 @@ const MultiStepForm = () => {
     updateField('spaces', newSpaces);
   };
 
-  // Validation Logic (Same as before)
+  // Validation Logic
   const validateStep = (step: number): boolean => {
     const newErrors: Partial<Record<keyof LeadFormData, string>> = {};
     let isValid = true;
@@ -218,15 +214,49 @@ const MultiStepForm = () => {
     setCurrentStep(prev => (prev - 1) as FormStep);
   };
 
+  // --- EMAILJS SUBMISSION LOGIC ---
   const handleSubmit = async () => {
     if (!validateStep(4)) return;
     setIsSubmitting(true);
-    // Simulate submission
-    setTimeout(() => {
-      setSubmitStatus('success');
-      setIsSubmitting(false);
-    }, 2000);
+    setServerError("");
+
+    // Prepare data mapping for EmailJS Template
+    // We send CLEAN DATA, not HTML tags. The HTML styling happens in the EmailJS dashboard.
+    const templateParams = {
+        to_name: "Admin", 
+        user_name: formData.fullName,
+        user_mobile: formData.mobile,
+        user_email: formData.email || "Not Provided",
+        user_city: formData.city,
+        property_type: formData.propertyType,
+        bhk_type: formData.bhkType,
+        property_status: formData.propertyStatus,
+        carpet_area: `${formData.carpetArea} sq.ft`,
+        spaces_selected: formData.spaces.join(", "), // Convert array to string
+        design_style: formData.designStyle,
+        budget_range: formData.budgetRange,
+        timeline: formData.timeline
+    };
+
+    try {
+        // REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
+        const SERVICE_ID = "service_5fvvdso"; 
+        const TEMPLATE_ID = "template_s8b5dco";
+        const PUBLIC_KEY = "kNoV7lG1GFR7qjBHZ";
+
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+        
+        setSubmitStatus('success');
+    } catch (error) {
+        console.error("EMAIL JS ERROR:", error);
+        setServerError("Something went wrong while sending your request. Please check your connection or try again.");
+        setSubmitStatus('error');
+    } finally {
+        setIsSubmitting(false);
+    }
   };
+
+  // --- SUCCESS SCREEN ---
 
   // --- SUCCESS SCREEN ---
 
@@ -241,12 +271,26 @@ const MultiStepForm = () => {
           <p className="text-[#5A4032]/70 mb-8">
             We have received your request, {formData.fullName.split(' ')[0]}. Our design consultant will reach out shortly.
           </p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="text-[#B98A6A] font-semibold hover:text-[#5A4032] transition-colors uppercase text-sm tracking-widest"
-          >
-            Start New Inquiry
-          </button>
+          
+          {/* Buttons Container */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {/* Go to Home Button */}
+            <button 
+              onClick={() => window.location.href = '/'}
+              className="bg-[#5A4032] hover:bg-[#4a3429] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg hover:shadow-xl transition-all"
+            >
+              Go to Home
+            </button>
+
+            {/* Start New Inquiry Button */}
+            <button 
+              onClick={() => window.location.reload()}
+              className="text-[#B98A6A] font-semibold hover:text-[#5A4032] transition-colors uppercase text-xs tracking-widest px-4 py-3"
+            >
+              Start New Inquiry
+            </button>
+          </div>
+
         </div>
       </div>
     );
@@ -364,9 +408,9 @@ const MultiStepForm = () => {
                     </div>
 
                     <div>
-                       <label className="block text-xs font-bold text-[#5A4032] uppercase tracking-wide mb-3">Status</label>
-                       <div className="space-y-2">
-                        {PROPERTY_STATUS.map((status) => (
+                        <label className="block text-xs font-bold text-[#5A4032] uppercase tracking-wide mb-3">Status</label>
+                        <div className="space-y-2">
+                         {PROPERTY_STATUS.map((status) => (
                           <div 
                             key={status}
                             onClick={() => updateField('propertyStatus', status)}
@@ -379,9 +423,9 @@ const MultiStepForm = () => {
                             <div className={`w-3 h-3 rounded-full mr-3 border ${formData.propertyStatus === status ? 'bg-[#B98A6A] border-[#B98A6A]' : 'border-[#5A4032]/30'}`} />
                             <span className="text-sm text-[#5A4032]">{status}</span>
                           </div>
-                        ))}
-                       </div>
-                       <ErrorMessage message={errors.propertyStatus} />
+                         ))}
+                        </div>
+                        <ErrorMessage message={errors.propertyStatus} />
                     </div>
                   </div>
                 </div>
@@ -603,12 +647,20 @@ const MultiStepForm = () => {
             )}
           </div>
 
+          {/* Server Error Message */}
+          {serverError && (
+              <div className="mt-4 p-3 bg-red-100 border border-red-200 text-red-700 text-sm rounded-lg flex items-center gap-2">
+                <AlertCircle size={16} />
+                {serverError}
+              </div>
+          )}
+
           {/* Action Button */}
           <div className="mt-8 pt-6 border-t border-[#E5E5E5]">
             <button
               onClick={currentStep === 4 ? handleSubmit : handleNext}
               disabled={isSubmitting}
-              className="w-full bg-[#5A4032] hover:bg-[#4a3429] text-white py-4 rounded-xl font-bold tracking-wide shadow-xl shadow-[#5A4032]/20 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 group"
+              className="w-full bg-[#5A4032] hover:bg-[#4a3429] text-white py-4 rounded-xl font-bold tracking-wide shadow-xl shadow-[#5A4032]/20 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <Loader2 className="animate-spin" />
